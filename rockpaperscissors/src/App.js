@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import Box from './component/Box';
 
@@ -18,20 +19,22 @@ const choice = {
   },
   paper:{
     name: "Paper",
-    img: "https://www.shutterstock.com/image-photo/man-holding-white-sheet-paper-260nw-1432860113.jpg"
+    img: "https://plus.unsplash.com/premium_photo-1700929226201-48c19ed1dcee?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 };
 
 function App() {
+  const [userSelect, setUserSelect] = useState(null)
+
   const play = (userChoice) => {
-    console.log("선택됨", userChoice);
+    setUserSelect(choice[userChoice]);
   }
 
   return (
     <div>
       <div className="main">
-        <Box title="You" />
-        <Box title="Computer" />  
+        <Box title="You" item={userSelect}/>
+        {/* <Box title="Computer" />   */}
       </div>
       <div className="main">
         <button onClick={() => play("scissors")}>가위</button>
