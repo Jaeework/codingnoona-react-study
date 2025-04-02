@@ -2,7 +2,8 @@
   margin: 10px;
   padding: 10px;
   width: 500px;
-  border : 5px solid black;
+  border : 6px solid black;
+  border-radius: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,4 +17,19 @@
 .main {
   display: flex;
   justify-content: center;
+}
+
+.box.win {
+  border-color: #3F7D58;
+  background-color: #99BC85;
+}
+
+.box.lose {
+  border-color: #EC5228;
+  background-color: #FFC1B4;
+}
+
+.box.tie {
+  border-color: #006A71;
+  background-color: #9ACBD0;
 }
