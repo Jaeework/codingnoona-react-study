@@ -11,15 +11,15 @@ import Box from './component/Box';
 const choice = {
   rock:{
     name: "Rock",
-    img: "https://m.media-amazon.com/images/I/61W8BVTF10L.jpg"
+    img: "/images/rock.png"
   },
   scissors:{
     name: "Scissors",
-    img : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSITqzwFnlFJoJFs6tcXoen7rVs04XLnfAZXQ&s"
+    img: "/images/scissors.png"
   },
   paper:{
     name: "Paper",
-    img: "https://plus.unsplash.com/premium_photo-1700929226201-48c19ed1dcee?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    img: "/images/paper.png"
   }
 };
 
@@ -27,24 +27,20 @@ function App() {
   const [userSelect, setUserSelect] = useState(null)
   const [computerSelect, setComputerSelect] = useState(null)
   const [result, setResult] = useState("");
+  const [computerResult, setComputerResult] = useState("");
 
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
     let computerChoice = randomChoice();
     setComputerSelect(computerChoice);
-    setResult(judgement(choice[userChoice], computerChoice));
+
+    let result = judgement(choice[userChoice], computerChoice);
+    setResult(result);
+    setComputerResult(result === "win" ? "lose" : (result === "lose" ? "win" : "tie"));
   };
 
   const judgement = (user, computer) => {
-    console.log('user: ', user, 'computer : ', computer);
 
-    // user === computer tie
-    // user === rock, computer === "scissors"  user win
-    // user === rock, computer === "paper"  user lose
-    // user === scissors, computer === paper  user win
-    // user === scissors, computer === rock  user lose
-    // user === paper, computer === rock  user win
-    // user === paper, computer == scissors  user lose
     if(user.name === computer.name) {
       return "tie"
     } else if(user.name === "Rock") {
@@ -64,16 +60,28 @@ function App() {
     return choice[itemArray[randomItem]];
   }
 
+  const resetGame = () => {
+    setUserSelect(null);
+    setComputerSelect(null);
+    setResult("");
+    setComputerResult("");
+  }
+
   return (
     <div>
-      <div className="main">
-        <Box title="You" item={userSelect} result={result}/>
-        <Box title="Computer" item={computerSelect} result={result}/>  
+      <div className="game-title">
+          <h1 onClick={resetGame}>Rock Paper Scissors✌🏻</h1>
       </div>
-      <div className="main">
-        <button onClick={() => play("scissors")}>가위</button>
-        <button onClick={() => play("rock")}>바위</button>
-        <button onClick={() => play("paper")}>보</button>
+      <div className="game-container">
+        <div className="main game-boxes">
+          <Box title="You" item={userSelect} result={result}/>
+          <Box title="Computer" item={computerSelect} result={computerResult}/>  
+        </div>
+        <div className="main game-buttons">
+          <button onClick={() => play("rock")}>Rock</button>
+          <button onClick={() => play("paper")}>Paper</button>
+          <button onClick={() => play("scissors")}>Scissors</button>
+        </div>
       </div>
     </div>
   );
