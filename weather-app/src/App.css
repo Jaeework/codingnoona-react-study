@@ -1,0 +1,27 @@
+body {
+  background-image: url(https://assamtribune.com/h-upload/2022/03/01/1330873-clouds-weather.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100dvh;
+}
+
+.container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-box {
+  border: 2px solid gray;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255, 0.6);
+  padding: 50px;
+  margin-bottom: 30px;
+}
+
+.weather-button {
+  margin: 3px;
+  font-weight: 700;
+}
