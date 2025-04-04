@@ -31,7 +31,7 @@ function App() {
     url.searchParams.set("lon", lon);
     url.searchParams.set("units", "metric");
     url.searchParams.set("lang", "kr");
-    url.searchParams.set("appid", "fa2a69dd8cb75956e0acc5ee6d580df2");
+    url.searchParams.set("appid", process.env.REACT_APP_API_KEY);
     let response = await fetch(url);
     let data = await response.json();
     setWeather(data);
