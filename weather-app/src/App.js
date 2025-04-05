@@ -16,6 +16,7 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
   const cities=['Seoul', 'London', 'Berlin', 'Frankfurt', 'Stockholm'];
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -27,29 +28,51 @@ function App() {
   }
 
   const getWeatherByCurrentLocation = async(lat, lon) => {
-    let url = new URL("https://api.openweathermap.org/data/2.5/weather");
-    url.searchParams.set("lat", lat);
-    url.searchParams.set("lon", lon);
-    url.searchParams.set("units", "metric");
-    url.searchParams.set("appid", process.env.REACT_APP_API_KEY);
     setLoading(true);
+    try {
+      let url = new URL("https://api.openweathermap.org/data/2.5/weather");
+      url.searchParams.set("lat", lat);
+      url.searchParams.set("lon", lon);
+      url.searchParams.set("units", "metric");
+      url.searchParams.set("appid", process.env.REACT_APP_API_KEY);
 
-    let response = await fetch(url);
-    let data = await response.json();
-    setWeather(data);
-    setLoading(false);
+      let response = await fetch(url);
+      let data = await response.json();
+      if(data.cod && data.cod !== 200) {
+        throw Error(data.message)
+      } else {
+        setApiError("");
+      }
+      setWeather(data);
+    } catch (error) {
+      setApiError(error.message);
+    } finally {
+      setLoading(false);
+    }
+    
   }
 
   const getWeatherByCity = async() => {
-    let url = new URL(`https://api.openweathermap.org/data/2.5/weather`);
-    url.searchParams.set("q", city);
-    url.searchParams.set("units", "metric");
-    url.searchParams.set("appid", process.env.REACT_APP_API_KEY);
+    setLoading(true);
+    try {
+      let url = new URL(`https://api.openweathermap.org/data/2.5/weather`);
+      url.searchParams.set("q", city);
+      url.searchParams.set("units", "metric");
+      url.searchParams.set("appid", process.env.REACT_APP_API_KEY);
 
-    let response = await fetch(url);
-    let data = await response.json();
-    console.log(data);
-    setWeather(data);
+      let response = await fetch(url);
+      let data = await response.json();
+      if(data.cod && data.cod !== 200) {
+        throw Error(data.message)
+      } else {
+        setApiError("");
+      }
+      setWeather(data);
+    } catch (error) {
+      setApiError(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -63,7 +86,7 @@ function App() {
   return (
     <div>
         <div className="container">
-          <WeatherBox weather={weather} loading={loading} />
+          <WeatherBox weather={weather} loading={loading} apiError={apiError} />
           <WeatherButton cities={cities} selectedCity={city} setCity={setCity}/>
         </div>
     </div>

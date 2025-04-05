@@ -23,8 +23,8 @@ const WeatherButton = ({selectedCity, cities, setCity}) => {
                 })}
         </DropdownButton>
         <div className="city-button-group">
-            {cities.map((item) => {
-                return <Button className="weather-button" 
+            {cities.map((item, index) => {
+                return <Button className="weather-button" key={index}
                             variant={selectedCity===item ? 'light' : 'warning'}
                             onClick={() => setCity(item)}>
                             {item}
