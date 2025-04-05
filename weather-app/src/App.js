@@ -3,7 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherBox from './component/WeatherBox';
 import WeatherButton from './component/WeatherButton';
-import ClipLoader from "react-spinners/ClipLoader";
 
 // 1. 앱 실행되면 현재 위치 기반 날씨 정보 표시
 // 2. 날씨 정보에는 도시, 섭씨, 화씨 날씨상태
@@ -17,9 +16,8 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
-  const cities=['london', 'berlin', 'frankfurt', 'stockholm', 'seoul'];
+  const cities=['Seoul', 'London', 'Berlin', 'Frankfurt', 'Stockholm'];
   const getCurrentLocation = () => {
-    console.log('getCurrentLocation');
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude;
       let lon = position.coords.longitude;
@@ -64,19 +62,10 @@ function App() {
   
   return (
     <div>
-      {loading?(
         <div className="container">
-          <ClipLoader
-            color='#fff'
-            loading={loading}
-            size={150}
-            aria-label="Loading Spinner"
-            data-testid="loader"/>
-        </div>) : (
-        <div className="container">
-          <WeatherBox weather={weather} />
+          <WeatherBox weather={weather} loading={loading} />
           <WeatherButton cities={cities} selectedCity={city} setCity={setCity}/>
-        </div>)}
+        </div>
     </div>
   );
 }
