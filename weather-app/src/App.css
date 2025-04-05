@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
   background-image: url(https://assamtribune.com/h-upload/2022/03/01/1330873-clouds-weather.webp);
   background-repeat: no-repeat;
@@ -14,11 +19,11 @@ body {
 }
 
 .weather-box {
-  min-width: 420px;
-  border: 2px solid #fff;
+  min-width: 450px;
+  border: 2px solid #f8f9fa;
   border-radius: 25px;
-  background-color: rgb(255, 255, 255, 0.6);
-  padding: 50px;
+  background-color: rgb(255, 255, 255, 0.8);
+  padding: 50px 30px;
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
@@ -31,7 +36,7 @@ body {
 .weather-box_content_name {
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin-bottom: 20px;
 }
 
 .weather-box_content_name>svg {
@@ -39,6 +44,7 @@ body {
 }
 
 .weather-box_content_data {
+  padding: 0 10px;
   display: flex;
   justify-content: space-between;
 }
@@ -51,6 +57,7 @@ body {
 }
 
 .weather-box_temp {
+  padding-top: 10px;
   text-align: right;
 }
 
@@ -87,7 +94,6 @@ body {
 
 
 @media (max-width: 800px) {
-
   .dropdown {
     display: block !important;
   }
@@ -110,7 +116,14 @@ body {
   }
 
   .weather-box_temp {
+    padding-top: 0;
     text-align: center;
+  }
+}
+
+@media (max-width: 350px) {
+  .weather-box {
+    min-width: 90%;
   }
 }
 
