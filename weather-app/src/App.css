@@ -14,7 +14,8 @@ body {
 }
 
 .weather-box {
-  border: 2px solid gray;
+  min-width: 400px;
+  border: 2px solid #fff;
   border-radius: 25px;
   background-color: rgb(255, 255, 255, 0.6);
   padding: 50px;
