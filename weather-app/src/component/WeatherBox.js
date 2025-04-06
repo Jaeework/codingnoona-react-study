@@ -30,7 +30,10 @@ const WeatherBox = ({weather, loading, apiError}) => {
                     </div>
                 </div>
             </div>
-        ) : (apiError)}
+        ) : (
+        <div className="weather-box_error">
+            {apiError}
+        </div>)}
     </div>
   )
 }

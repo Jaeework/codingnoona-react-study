@@ -17,18 +17,32 @@ function App() {
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState("");
-  const cities=['Seoul', 'London', 'Berlin', 'Frankfurt', 'Stockholm'];
+  const cities=['Seoul', 'Dublin', 'Copenhagen', 'Oslo', 'Stockholm', 'Helsinki'];
+  
   const getCurrentLocation = () => {
+    setApiError("");
+
+    if(!navigator.geolocation) {
+      setApiError("Geolocation is not supported by your browser");
+      setLoading(false);
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude;
       let lon = position.coords.longitude;
-
+  
       getWeatherByCurrentLocation(lat, lon);
+    }, (error) => {
+      setApiError(error.message || "An unknown error occurred while getting location.");
+      setLoading(false);
     });
+
   }
 
   const getWeatherByCurrentLocation = async(lat, lon) => {
-    setLoading(true);
+    setApiError("");
+
     try {
       let url = new URL("https://api.openweathermap.org/data/2.5/weather");
       url.searchParams.set("lat", lat);
@@ -40,10 +54,10 @@ function App() {
       let data = await response.json();
       if(data.cod && data.cod !== 200) {
         throw Error(data.message)
-      } else {
-        setApiError("");
       }
+
       setWeather(data);
+
     } catch (error) {
       setApiError(error.message);
     } finally {
@@ -53,7 +67,8 @@ function App() {
   }
 
   const getWeatherByCity = async() => {
-    setLoading(true);
+    setApiError("");
+
     try {
       let url = new URL(`https://api.openweathermap.org/data/2.5/weather`);
       url.searchParams.set("q", city);
@@ -64,10 +79,10 @@ function App() {
       let data = await response.json();
       if(data.cod && data.cod !== 200) {
         throw Error(data.message)
-      } else {
-        setApiError("");
       }
+
       setWeather(data);
+
     } catch (error) {
       setApiError(error.message);
     } finally {
@@ -76,6 +91,7 @@ function App() {
   }
 
   useEffect(() => {
+    setLoading(true);
     if(city) {
       getWeatherByCity();
     } else {
