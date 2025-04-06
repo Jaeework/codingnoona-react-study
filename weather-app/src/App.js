@@ -15,7 +15,7 @@ function App() {
 
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState("");
   const cities=['Seoul', 'London', 'Berlin', 'Frankfurt', 'Stockholm'];
   const getCurrentLocation = () => {
