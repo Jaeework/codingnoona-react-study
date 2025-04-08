@@ -1,0 +1,47 @@
+.login-button {
+    margin: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login-button * {
+    margin-right: 5px;
+}
+
+.nav-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.menu-list {
+    display: flex;
+    list-style-type: none;
+}
+
+.menu-list li {
+    padding: 10px;
+}
+
+.search-area {
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid black;
+    height: 40px;
+}
+
+.search-area input {
+    border: none;
+}
+
