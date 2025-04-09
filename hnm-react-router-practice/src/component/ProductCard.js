@@ -1,13 +1,21 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const ProductCard = () => {
+const ProductCard = ({item}) => {
+  const navigate = useNavigate();
+  const showDetail = () => {
+    navigate(`/product/${item.id}`);
+  }
+
   return (
-    <div>
-        <img src="https://noona-hnm.netlify.app/pattern-jacket.jpeg" />
-        <div>Conscious choice</div>
-        <div>벨티드 트윌 코트</div>
-        <div>99999</div>
-        <div>신제품</div>
+    <div className="product-card" onClick={showDetail}>
+        <div className="product-card-img-container">
+          <img className="product-card-img" src={item?.img} alt={item?.title} />
+        </div>
+        <div>{item?.choice?"Conscious choice" : ""}</div>
+        <div>{item?.title}</div>
+        <div>{item?.price}</div>
+        <div>{item?.new?"New Item":""}</div>
     </div>
   )
 }
