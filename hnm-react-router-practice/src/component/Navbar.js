@@ -36,9 +36,9 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
             <Container>
                 <div className="login-area mt-2">
                     <div className="menu-area-sm">
-                        <div className="off-canvas">
+                        <div>
                             <FontAwesomeIcon onClick={toggleShowMenu} className="d-flex d-md-none" icon={faBars} />
-                            <Offcanvas show={showMenu} onHide={closeShowMenu} className=" d-flex d-md-none" scroll={true}>
+                            <Offcanvas show={showMenu} onHide={closeShowMenu} className="d-flex d-md-none" scroll={true}>
                                 <Offcanvas.Header closeButton>
                                     <Offcanvas.Title>Category</Offcanvas.Title>
                                 </Offcanvas.Header>
@@ -61,17 +61,10 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
                                 onKeyUp={(event) => search(event)} />
                         </div>
                     </div>
-                    {authenticate ? 
-                        (<div className='logout-button' onClick={logout}>
-                            <FontAwesomeIcon icon={faRightFromBracket} />
-                            <div className="d-none d-lg-flex">로그아웃</div>
-                        </div>)
-                        : (<div className='login-button' onClick={goToLogin}>
-                                <FontAwesomeIcon icon={faUser} />
-                                <div className="d-none d-lg-flex">로그인</div>
-                            </div>)
-                    }
-                    
+                    <div className={authenticate?"logout-button":"login-button"} onClick={authenticate? logout : goToLogin}>
+                        <FontAwesomeIcon icon={authenticate? faRightFromBracket : faUser} />
+                        <div className="d-none d-lg-flex">{authenticate? "로그아웃" : "로그인"}</div>
+                    </div>
                 </div>
                 <div className='nav-section'>
                     <img onClick={goToHome}

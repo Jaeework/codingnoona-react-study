@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Button } from 'react-bootstrap'
+import { Col, Container, Row, Button, Badge } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
-  const {id} = useParams();
+  const [size, setSize] = useState(null);
+  const { id } = useParams();
 
     let url = `https://my-json-server.typicode.com/Jaeework/codingnoona-react-study/products/${id}`;
-  const getProductDetail = async() => {
+  const getProductDetail = async () => {
     let response = await fetch(url)
     let data = await response.json();
     setProduct(data);
@@ -26,21 +27,28 @@ const ProductDetail = () => {
           </Col>
           <Col lg={6} className="product-description">
             <div>
-              <div className="mb-2">{product?.title}</div>
-              <div className="mb-3"><strong>₩{product?.price}</strong></div>
-              <div className="mb-3">{product?.choice?"Choice":""}</div>
+              <div className="d-flex my-1">
+                {product?.choice ? <Badge className="me-1" bg="danger">Conscious choice</Badge> : ""}
+                {product?.new ? <Badge className="me-1" bg="dark">New</Badge> : ""}
+              </div>
+              <div className="product-title mb-1">{product?.title}</div>
+              <div className="product-price mb-3">₩{product?.price}</div>
             </div>
             <div>
-              <p className="mb-3">사이즈 선택</p>
-              <div className="d-flex flex-wrap mb-5">{product?.size.length > 1 ? 
-                    ( product.size.map((item, index) => {
+              {product?.size?.length > 0 ?
+                (<>
+                  <p className="mb-3">{size ? `선택한 사이즈: ${size}` : "사이즈 선택"}</p>
+                  <div className="d-flex flex-wrap mb-5">
+                    {product.size.map((item, index) => {
                       return (<div key={index}
-                                  className="product-size-option py-4">
-                                {item}
-                              </div>)
-                    }))
-               : ""}
-              </div>
+                        className={`product-size-option ratio ratio-1x1 ${size && size === item ? 'active' : ''}`}
+                        onClick={() => setSize(item)}>
+                        <div>{item}</div>
+                      </div>)
+                    })}
+                  </div>
+                </>)
+                : ""}
               <Button className="w-100 mb-3" variant="dark">추가</Button>
             </div>
           </Col>

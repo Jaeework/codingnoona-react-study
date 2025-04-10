@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 * {
     margin: 0;
+    font-family: "Noto Sans", sans-serif;
 }
 
+/* Navbar */
 .login-button, .logout-button {
     margin: 10px;
     display: flex;
@@ -48,12 +51,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 85%;
 }
 
 .menu-area-sm svg {
     margin-right: 10px;
     font-size: 1.3rem;
     cursor: pointer;
+}
+
+.menu-area-sm .search-area {
+    overflow: hidden;
 }
 
 .menu-list-sm {
@@ -76,11 +84,14 @@
     justify-content: center;
     align-items: center;
     height: 40px;
+    transition: all 0.3 ease-in;
 }
 
 .search-area input {
     border: none;
 }
+
+/* ProductCard */
 
 .product-card {
     cursor: pointer;
@@ -100,17 +111,31 @@
     transform: scale(1.2);
 }
 
+/* ProductDetail */
 .product-description {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+.product-title {
+    font-weight: 500;
+}
+
+.product-price {
+    font-weight: 600;
+}
+
 .product-size-option {
     border: 1px solid gainsboro;
-    width: 20%;
-    text-align: center;
+    max-width: 20%;
     cursor: pointer;
+}
+
+.product-size-option div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-size-option:hover {
@@ -122,8 +147,10 @@
 }
 
 
+
 @media (max-width: 991px) {
 
+    /* Navbar */
     .login-area {
         display: flex;
         justify-content: space-between;
