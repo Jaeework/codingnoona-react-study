@@ -11,12 +11,17 @@ const ProductAll = ({ loading, setLoading }) => {
 
   const getProducts = async () => {
     setLoading(true);
-    let searchQuery = query.get("q") || "";
-    let url = `https://my-json-server.typicode.com/Jaeework/codingnoona-react-study/products?q=${searchQuery}`;
-    let response = await fetch(url)
-    let data = await response.json();
-    setProductList(data);
-    setLoading(false);
+    try {
+      let searchQuery = query.get("q") || "";
+      let url = `https://my-json-server.typicode.com/Jaeework/codingnoona-react-study/products?q=${searchQuery}`;
+      let response = await fetch(url)
+      let data = await response.json();
+      setProductList(data);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
   useEffect(() => {
     getProducts()

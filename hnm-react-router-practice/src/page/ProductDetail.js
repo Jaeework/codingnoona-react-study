@@ -9,13 +9,18 @@ const ProductDetail = ({ loading, setLoading }) => {
   const [size, setSize] = useState(null);
   const { id } = useParams();
 
-    let url = `https://my-json-server.typicode.com/Jaeework/codingnoona-react-study/products/${id}`;
   const getProductDetail = async () => {
     setLoading(true);
-    let response = await fetch(url)
-    let data = await response.json();
-    setProduct(data);
-    setLoading(false);
+    try {
+      let url = `https://my-json-server.typicode.com/Jaeework/codingnoona-react-study/products/${id}`;
+      let response = await fetch(url)
+      let data = await response.json();
+      setProduct(data);
+    } catch(error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
