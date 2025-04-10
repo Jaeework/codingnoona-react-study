@@ -10,7 +10,6 @@ const ProductDetail = () => {
   const getProductDetail = async() => {
     let response = await fetch(url)
     let data = await response.json();
-    console.log(data);
     setProduct(data);
   }
 
@@ -35,7 +34,7 @@ const ProductDetail = () => {
               <p className="mb-3">사이즈 선택</p>
               <div className="d-flex flex-wrap mb-5">{product?.size.length > 1 ? 
                     ( product.size.map((item, index) => {
-                      return (<div key={index} style={{width: "20%"}}
+                      return (<div key={index}
                                   className="product-size-option py-4">
                                 {item}
                               </div>)

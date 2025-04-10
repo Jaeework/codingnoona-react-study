@@ -2,7 +2,7 @@
     margin: 0;
 }
 
-.login-button {
+.login-button, .logout-button {
     margin: 10px;
     display: flex;
     justify-content: flex-end;
@@ -10,8 +10,9 @@
     cursor: pointer;
 }
 
-.login-button * {
-    margin-right: 5px;
+.login-button svg, .logout-button svg {
+    margin-right: 10px;
+    font-size: 1.3rem;
 }
 
 .nav-section {
@@ -43,13 +44,37 @@
     padding: 10px;
 }
 
+.menu-area-sm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-area-sm svg {
+    margin-right: 10px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.menu-list-sm {
+    list-style: none;
+}
+
+.menu-list-sm li {
+    cursor: pointer;
+    margin: 20px 10px;
+}
+
+.search-area.underline {
+    border-bottom: 1px solid black;
+}
+
 .search-area {
     position: absolute;
     right: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid black;
     height: 40px;
 }
 
@@ -83,6 +108,7 @@
 
 .product-size-option {
     border: 1px solid gainsboro;
+    width: 20%;
     text-align: center;
     cursor: pointer;
 }
