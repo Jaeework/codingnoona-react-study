@@ -2,17 +2,21 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from '../component/ProductCard';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
+import LoadingSpinner from '../component/LoadingSpinner';
+import AlertMessage from '../component/AlertMessage';
 
-const ProductAll = () => {
+const ProductAll = ({ loading, setLoading }) => {
   const [productList, setProductList] = useState([]);
   const [query, setQuery] = useSearchParams();
 
   const getProducts = async () => {
+    setLoading(true);
     let searchQuery = query.get("q") || "";
     let url = `https://my-json-server.typicode.com/Jaeework/codingnoona-react-study/products?q=${searchQuery}`;
     let response = await fetch(url)
     let data = await response.json();
     setProductList(data);
+    setLoading(false);
   }
   useEffect(() => {
     getProducts()
@@ -21,17 +25,21 @@ const ProductAll = () => {
   return (
     <div>
       <Container>
-        <Row>
-          {productList.map((item, index) => {
-            return (
-              <Col key={index} md={4} lg={3}>
-                <ProductCard item={item} />
-              </Col>
-            );
-          })}
-        </Row>
+        {loading ? 
+          <LoadingSpinner message={'상품 목록을 불러오는 중입니다'} /> : 
+          <Row>
+            {productList?.length > 0 ? productList.map((item, index) => {
+              return (
+                <Col key={index} md={4} lg={3}>
+                  <ProductCard item={item} />
+                </Col>
+              );
+            }) :
+            <AlertMessage message={"표시할 상품이 없습니다"} />
+            }
+          </Row>
+        }
       </Container>
-
     </div>
   )
 }

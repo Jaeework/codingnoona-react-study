@@ -91,8 +91,15 @@
     border: none;
 }
 
-/* ProductCard */
+/* loaindg spinner*/
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+/* ProductCard */
 .product-card {
     cursor: pointer;
 }

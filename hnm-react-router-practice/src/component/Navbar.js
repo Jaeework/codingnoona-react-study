@@ -63,7 +63,7 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
                     </div>
                     <div className={authenticate?"logout-button":"login-button"} onClick={authenticate? logout : goToLogin}>
                         <FontAwesomeIcon icon={authenticate? faRightFromBracket : faUser} />
-                        <div className="d-none d-lg-flex">{authenticate? "로그아웃" : "로그인"}</div>
+                        <span className="d-none d-lg-flex">{authenticate? "로그아웃" : "로그인"}</span>
                     </div>
                 </div>
                 <div className='nav-section'>
