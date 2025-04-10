@@ -17,7 +17,7 @@ const Navbar = () => {
     }
 
     return (
-        <div>
+        <div className="mb-5">
             <Container>
                 <div className="login-area">
                     <div className='search-area d-flex d-lg-none'>

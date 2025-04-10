@@ -39,6 +39,7 @@
 }
 
 .menu-list li {
+    cursor: pointer;
     padding: 10px;
 }
 
@@ -72,6 +73,26 @@
 
 .product-card-img:hover {
     transform: scale(1.2);
+}
+
+.product-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-size-option {
+    border: 1px solid gainsboro;
+    text-align: center;
+    cursor: pointer;
+}
+
+.product-size-option:hover {
+    border: 1px solid black;
+}
+
+.product-size-option.active {
+    border: 1px solid black;
 }
 
 
