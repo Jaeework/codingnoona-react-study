@@ -17,6 +17,9 @@ const ContactForm = () => {
         setPhoneNumber("");
         closeForm();
     }
+    const handleEnter = (event) => {
+        if(event.key === "Enter") handleAddContact();
+    }
 
     return (
         <Box sx={{ width: { xs:'90%', sm: '60%', md:'40%'}, }} 
@@ -41,7 +44,9 @@ const ContactForm = () => {
                 variant="outlined"
                 color="secondary" 
                 value={phoneNumber}
-                onChange={(event) => setPhoneNumber(event.target.value)} />
+                onChange={(event) => setPhoneNumber(event.target.value)} 
+                onKeyUp={(event) => handleEnter(event)}
+                />
             <Box sx={{ my:1 }} display="flex" justifyContent="center" gap={2}>
                 <Button size="medium" variant="outlined" color="secondary" onClick={handleCancel}>CANCEL</Button>
                 <Button size="medium" variant="contained" color="secondary" onClick={handleAddContact}>SAVE</Button>
