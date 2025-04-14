@@ -59,7 +59,7 @@ const ContactList = () => {
                                     }>
                                     <ListItemText
                                         primary={
-                                            <Typography variant="body1" fontWeight="medium">
+                                            <Typography variant="body1" fontWeight="medium" color="text.primary">
                                                 {item.name}
                                             </Typography>
                                         }

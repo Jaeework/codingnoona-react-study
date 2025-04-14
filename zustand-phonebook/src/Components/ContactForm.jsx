@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import usePhoneBookStore from '../stores/usePhonebookStore';
 
@@ -25,7 +25,9 @@ const ContactForm = () => {
         <Box sx={{ width: { xs:'90%', sm: '60%', md:'40%'}, }} 
             className={`contact-form ${showForm? '' : 'disabled'}`} 
             display="flex" flexDirection="column" alignItems="center" gap={2}>
-            <h4>Add New Contact</h4>
+            <Typography variant="h6" component="h4" color="text.primary" sx={{ mb: 2 }}>
+                Add New Contact
+            </Typography>
             <TextField 
                 fullWidth
                 required
