@@ -102,8 +102,22 @@
     <img src="https://github.com/user-attachments/assets/d7b6a09c-903c-42a5-b2c9-14a8739600e0" alt="쇼핑몰 페이지" width="500px" />
 </a>
 
-#### [🧥봄옷 장만하러 가기](https://jayso-hnm.vercel.app/)
+#### [🧥봄옷 사러 가기](https://jayso-hnm.vercel.app/)
 
 <br/>
 
+### 2.6 상태관리 라이브러리 `zustand`
+- `zustand` 개념을 활용하여 간단한 카운터 만들기
+### 2.7 연락처 앱 만들기
+- `zustand`, `MUI` 를 사용하여 연락처 앱 만들기 프로젝트
+#### 👤 User Story
+1. 유저는 이름과, 전화번호를 등록할 수 있다.
+2. 유저는 등록된 연락처 목록을 볼 수 있다.
+3. 유저는 이름으로 검색할 수 있다.
+
+<br/>
+
+## Week 3
+### 3.1 리액트 쿼리
+### 3.2 리액트 쿼리 이어서...
 
