@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      'import.meta.env.VITE_APP_KEY': JSON.stringify(env.REACT_APP_KEY),
+      'import.meta.env.VITE_APP_KEY': JSON.stringify(env.REACT_APP_API_KEY),
     }
   }
 })
