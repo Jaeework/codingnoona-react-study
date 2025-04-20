@@ -4,13 +4,18 @@
 .slider-title {
     font-size: 1.5rem;
     margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .movie-slider {
-    padding: 10px;
-    margin: 0 5px;
+    margin: 0 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+@media (max-width: 480px) {
+    .carousel-container {
+        height: 300px;
+    }
+}
