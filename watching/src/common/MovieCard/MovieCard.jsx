@@ -39,7 +39,7 @@ const MovieCard = ({ movie }) => {
             className="movie-card">
             <div className="overlay">
                 <div>
-                    <h2>{movie.title}</h2>
+                    <h2 className="movie-title">{movie.title}</h2>
                     <Stack 
                         direction="row"
                         useFlexGap

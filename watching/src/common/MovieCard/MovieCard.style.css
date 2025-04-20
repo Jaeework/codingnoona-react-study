@@ -27,9 +27,20 @@
     opacity: 1;
 }
 
+.movie-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
 .movie-rate-infos {
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 10px;
+}
+
+@media (max-width: 480px) {
+    .movie-card {
+        width: 100%;
+    }
 }
