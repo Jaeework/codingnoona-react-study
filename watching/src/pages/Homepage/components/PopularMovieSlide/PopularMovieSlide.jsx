@@ -1,0 +1,25 @@
+import React from 'react'
+import { usePopularMoviesQuery } from '../../../../hooks/usePopularMovies'
+import LoadingSpinner from '../../../../common/components/LoadingSpinner';
+import AlertMessage from '../../../../common/components/AlertMessage';
+import MovieSlider from '../../../../common/MovieSlider/MovieSlider';
+import { responsive } from '../../../../constants/responsive';
+
+
+const PopularMovieSlide = () => {
+    const {data, isLoading, isError, error} = usePopularMoviesQuery();
+    
+    if(isLoading) {
+        return <LoadingSpinner />
+    }
+    if(isError) {
+        return <AlertMessage error={error} />
+    }
+    return (
+      <div>
+        <MovieSlider title="Popular Movies" movies={data} responsive={responsive} />
+      </div>
+    )
+}
+
+export default PopularMovieSlide

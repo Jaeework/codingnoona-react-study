@@ -1,25 +1,19 @@
 import React from 'react'
 import { usePopularMoviesQuery } from '../../../../hooks/usePopularMovies'
 import "./Banner.style.css";
-import { Alert, Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import LoadingSpinner from '../../../../common/components/LoadingSpinner';
+import AlertMessage from '../../../../common/components/AlertMessage';
 
 const Banner = () => {
 
     const { data, isLoading, isError, error } =usePopularMoviesQuery();
     console.log('ddd', data);
     if(isLoading) {
-        return (
-            <Box container sx={{ height: "56vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <CircularProgress sx={{color: "#fff"}} />
-            </Box>
-        )
+        return <LoadingSpinner />
     }
     if(isError) {
-        return (
-            <Box container sx={{ height: "56vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <Alert severity="error">{error.message}</Alert>
-            </Box>
-        )
+        return <AlertMessage error={error} />
     }
     return (
     <div style={{

@@ -1,0 +1,25 @@
+import React from 'react'
+import LoadingSpinner from '../../../../common/components/LoadingSpinner';
+import AlertMessage from '../../../../common/components/AlertMessage';
+import MovieSlider from '../../../../common/MovieSlider/MovieSlider';
+import { responsive } from '../../../../constants/responsive';
+import { useUpcomingMoviesQuery } from '../../../../hooks/useUpcomigMovies';
+
+
+const UpcomingMovieSlide = () => {
+    const {data, isLoading, isError, error} = useUpcomingMoviesQuery();
+    
+    if(isLoading) {
+        return <LoadingSpinner />
+    }
+    if(isError) {
+        return <AlertMessage error={error} />
+    }
+    return (
+      <div>
+        <MovieSlider title="Upcoming Movies" movies={data} responsive={responsive} />
+      </div>
+    )
+}
+
+export default UpcomingMovieSlide
