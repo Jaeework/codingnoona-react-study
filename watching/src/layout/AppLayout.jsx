@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled, alpha, ThemeProvider, createTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, Outlet } from 'react-router-dom';
 import watchinglogo from '../assets/watching.png';
+import { useNavigate } from 'react-router-dom';
 
 const pages = ['home', 'movies'];
 const Search = styled('div')(({ theme }) => ({
@@ -65,7 +66,16 @@ const darkTheme = createTheme({
 });
 
 const AppLayout = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  const searchByKeyword = (event) => {
+    event.preventDefault();
+    // url 바꿔주기
+    navigate(`/movies?q=${keyword}`);
+    setKeyword("");
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -125,7 +135,7 @@ const AppLayout = () => {
                       onClick={handleCloseNavMenu}
                       component={Link}
                       to={page === 'home' ? '/' : `${page}`}>
-                      <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                      <Typography sx={{ textAlign: 'center' }}>{page.toUpperCase()}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
@@ -154,18 +164,23 @@ const AppLayout = () => {
                   </Button>
                 ))}
               </Box>
-              <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+              <Box 
+                component="form" 
+                sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}
+                onSubmit={searchByKeyword}>
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
                   <StyledInputBase
                     placeholder="Search…"
+                    value={keyword}
+                    onChange={(event)=>setKeyword(event.target.value)}
                     inputProps={{ 'aria-label': 'search' }}
                   />
                 </Search>
-                <Button variant="outlined" color="error" sx={{ ml: 1 }}>
-                  검색
+                <Button variant="outlined" color="error" sx={{ ml: 1 }} type="submit">
+                  Search
                 </Button>
               </Box>
             </Toolbar>
