@@ -1,11 +1,26 @@
-import { Alert, Box } from '@mui/material'
+import { Alert, Grid } from '@mui/material'
 import React from 'react'
 
-const AlertMessage = ({error}) => {
+const AlertMessage = ({message, type}) => {
   return (
-    <Box container sx={{ height: "56vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <Alert severity="error">{error.message}</Alert>
-    </Box>
+    <Grid container 
+      sx={{ 
+        height: "56vh", 
+        maxHeight:"100%", 
+        width: "100%", 
+        display: "flex", 
+        justifyContent: "center", 
+        alignItems: "center"}}>
+        <Grid size={8}>
+          <Alert 
+            severity={type}
+            icon={false}
+            sx={{
+              justifyContent: "center"
+            }}
+            >{message}</Alert>
+        </Grid>
+    </Grid>
   )
 }
 

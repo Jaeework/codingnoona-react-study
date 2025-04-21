@@ -13,7 +13,7 @@ const UpcomingMovieSlide = () => {
         return <LoadingSpinner />
     }
     if(isError) {
-        return <AlertMessage error={error} />
+        return <AlertMessage type="error" message={error.message} />
     }
     return (
       <div>

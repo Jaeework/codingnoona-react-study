@@ -8,12 +8,12 @@ import AlertMessage from '../../../../common/components/AlertMessage';
 const Banner = () => {
 
     const { data, isLoading, isError, error } =usePopularMoviesQuery();
-    console.log('ddd', data);
+
     if(isLoading) {
         return <LoadingSpinner />
     }
     if(isError) {
-        return <AlertMessage error={error} />
+        return <AlertMessage type="error" message={error.message} />
     }
     return (
     <div style={{
@@ -21,7 +21,7 @@ const Banner = () => {
     }}
     className="banner" >
         <Box sx={{ color: "#f5f5f5" }} className="banner-text-area">
-            <Typography variant="h2">{data?.results[0].title}</Typography>
+            <Typography variant="h2" color="error">{data?.results[0].title}</Typography>
             <Typography variant="body2">{data?.results[0].overview}</Typography>
         </Box>
     </div>
