@@ -78,7 +78,7 @@ const MovieCard = ({ movie }) => {
                 </div>
                 <div className="movie-rate-infos">
                     <Box sx={{display:"flex", alignItems:"center"}}>
-                        <StarIcon fontSize="small" />
+                        <StarIcon color="warning" fontSize="small" />
                         {movie.vote_average.toFixed(2)}
                     </Box>
                     <div>{Math.floor(movie.popularity)}</div>

@@ -30,6 +30,7 @@
 @media (max-width: 580px) {
     .banner-text-area {
         max-height: 100%;
+        width: 70%;
         height: auto;
     }
     .banner-text-area > p {
@@ -38,7 +39,7 @@
         text-overflow: ellipsis;
         word-break: keep-all;
         display: -webkit-box;
-        -webkit-line-clamp: 7;
+        -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
     }
 }

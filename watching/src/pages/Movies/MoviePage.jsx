@@ -39,9 +39,15 @@ const MoviePage = () => {
       <Grid size={{ md: 8, xs: 12 }}>
         <Grid container spacing={2}>
           {data?.results.length > 0 ? data?.results.map((movie, index) => {
-            return <Grid key={index} size={{ lg:4 ,md: 6, xs: 12 }}>
+            return (
+            <Grid 
+              sx={{display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center"}} 
+              key={index} 
+              size={{ lg:4 ,md: 6, xs: 12 }}>
               <MovieCard movie={movie} />
-            </Grid>
+            </Grid>)
           }) : <AlertMessage type="warning" message={"표시할 결과가 없습니다."} /> }
         </Grid>
         <Pagination 

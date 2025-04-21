@@ -21,8 +21,19 @@ const Banner = () => {
     }}
     className="banner" >
         <Box sx={{ color: "#f5f5f5" }} className="banner-text-area">
-            <Typography variant="h2" color="error">{data?.results[0].title}</Typography>
-            <Typography variant="body2">{data?.results[0].overview}</Typography>
+            <Typography 
+                variant="h2" 
+                color="error.dark"
+                sx={{fontFamily: "Impact, Franklin Gothic Heavy, Arial Black, sans-serif",
+                    fontSize: "4rem",
+                    wordWrap: "break-word",
+                    wordBreak: "keep-all"
+                }}
+                >{data?.results[0].title}</Typography>
+            <Typography 
+                variant="body2"
+                sx={{fontFamily: "Apple SD Gothic Neo, Malgun Gothic, Segoe UI, sans-serif"}}
+                >{data?.results[0].overview}</Typography>
         </Box>
     </div>
   )
