@@ -4,7 +4,9 @@ import LoadingSpinner from '../../common/components/LoadingSpinner';
 import AlertMessage from '../../common/components/AlertMessage';
 import MovieCard from '../../common/MovieCard/MovieCard'
 import { useSearchParams } from 'react-router-dom';
-import { Grid, Pagination } from '@mui/material';
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button, Chip, Grid, MenuItem, MenuList, Pagination, Stack, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
 
 // 경로 2가지
 // nav바에서 클릭해서 온 경우 => popular Movie 보여주기
@@ -24,6 +26,7 @@ const MoviePage = () => {
   },[keyword]);
 
   const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page });
+  const {data:genreData} = useMovieGenreQuery();
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -34,7 +37,60 @@ const MoviePage = () => {
   return (
     <Grid sx={{ p: "20px" }} container spacing={2}>
       <Grid sx={{color:"#fff"}} size={{ md: 4, xs: 12 }}>
-        필터
+          <Accordion sx={{
+            backgroundColor: "transparent",
+            border: "solid 1px #fff",
+            color: "#fff"
+          }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon sx={{color:"#fff"}} />}
+              aria-controls="panel3-content"
+              id="panel3-header"
+            >
+              <Typography component="span">Sort by</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <MenuList>
+                <MenuItem >인기 많은 순</MenuItem>
+                <MenuItem >최신 발매 순</MenuItem>
+                <MenuItem >별점 높은 순</MenuItem>
+              </MenuList>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion sx={{
+            backgroundColor: "transparent",
+            border: "solid 1px #fff",
+            color: "#fff",
+          }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon sx={{color:"#fff"}} />}
+              aria-controls="panel3-content"
+              id="panel3-header"
+            >
+              <Typography component="span">by Genre</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Stack
+                direction="row"
+                useFlexGap
+                sx={{flexWrap: "wrap"}}
+                spacing={1}>
+                  {genreData?.map((genre) => {
+                    return (
+                      <Chip
+                        key={genre.id}
+                        label={genre.name}
+                        sx={{color: "#fff"}}
+                        variant="outlined" />
+                    )
+                  })}
+              </Stack>
+            </AccordionDetails>
+            <AccordionActions>
+              <Button variant="contained" color='#fff'>APPLY</Button>
+            </AccordionActions>
+          </Accordion>
+      
       </Grid>
       <Grid size={{ md: 8, xs: 12 }}>
         <Grid container spacing={2}>
@@ -45,14 +101,14 @@ const MoviePage = () => {
                 justifyContent: "center", 
                 alignItems: "center"}} 
               key={index} 
-              size={{ lg:4 ,md: 6, xs: 12 }}>
+              size={{ lg:3 ,md: 4, xs: 6 }}>
               <MovieCard movie={movie} />
             </Grid>)
           }) : <AlertMessage type="warning" message={"표시할 결과가 없습니다."} /> }
         </Grid>
         <Pagination 
           boundaryCount={0}
-          siblingCount={4}
+          siblingCount={2}
           showFirstButton="true"
           showLastButton="true"
           count={data?.total_pages > 500 ? 500 : data?.total_pages} 

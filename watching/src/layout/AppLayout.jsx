@@ -15,6 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link, Outlet } from 'react-router-dom';
 import watchinglogo from '../assets/watching.png';
 import { useNavigate } from 'react-router-dom';
+import UpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Fab } from '@mui/material';
 
 const pages = ['home', 'movies'];
 const Search = styled('div')(({ theme }) => ({
@@ -186,8 +188,28 @@ const AppLayout = () => {
             </Toolbar>
           </Container>
         </AppBar>
+        <Fab 
+          sx={{
+            position: "fixed",
+            bottom: "2rem",
+            right: "2rem",
+            zIndex: 9999,
+            opacity: 0.4,
+            transition: "all 0.2s ease-in-out" ,
+            '&:hover' : {
+              opacity: 1,
+            }
+          }} 
+          aria-label="scroll to top" 
+          size="small" 
+          color="inherit"
+          href="#"
+        >
+          <UpIcon />
+        </Fab>
       </ThemeProvider>
       <Outlet />
+      
     </div>
 
   );
