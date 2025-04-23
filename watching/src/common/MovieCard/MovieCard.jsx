@@ -2,36 +2,38 @@ import { Box, Chip, Stack } from '@mui/material'
 import React from 'react'
 import "./MovieCard.style.css";
 import StarIcon from '@mui/icons-material/Star';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import NoImage from '../../assets/no_image.png';
 import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
 
 
 const UnderAge = () => (
     <Box component="span" 
         sx={{
-            // bgcolor: "success.main", 
+            bgcolor: "success.main", 
             border: "1px solid #fff",
-            width:30, 
-            height: 30, 
+            width:25, 
+            height: 25, 
             borderRadius: "50%",
             display: "flex",
             justifyContent:"center",
             alignItems:"center",
-            fontSize: "0.75rem"}}>
+            fontSize: "0.6rem"}}>
         ALL
     </Box>
 );
 const OverAge = () => (
     <Box component="span" 
         sx={{
-            // bgcolor: "error.main", 
+            bgcolor: "error.main", 
             border: "1px solid #fff",
-            width:30, 
-            height: 30, 
+            width:25, 
+            height: 25, 
             borderRadius: "50%",
             display: "flex",
             justifyContent:"center",
             alignItems:"center",
-            fontSize: "0.75rem"}}>
+            fontSize: "0.6rem"}}>
         18+
     </Box>
 );
@@ -48,7 +50,7 @@ const MovieCard = ({ movie }) => {
         return genreNameList;
     }
 
-    let imgUrl = `https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg`;
+    let imgUrl = NoImage;
 
     if(movie.poster_path) {
         imgUrl = `https://image.tmdb.org/t/p/w342/${movie.poster_path}`;
@@ -61,19 +63,27 @@ const MovieCard = ({ movie }) => {
             className="movie-card">
             <div className="overlay">
                 <div>
-                    <h2 className="movie-title">{movie.title}</h2>
+                    <h2 variant='h6' className="movie-title" >{movie.title}</h2>
                     <Stack 
                         direction="row"
                         useFlexGap
                         sx={{flexWrap: "wrap"}}
                         spacing={1}>
-                        {showGenre(movie.genre_ids).map((genre) => {
+                        {showGenre(movie.genre_ids).slice(0, 3).map((genre) => {
                             return <Chip key={genre} 
                                         label={genre}
                                         sx={{color: "#fff"}}
                                         size="small" 
-                                        variant="outlined" />
+                                        variant="outlined"
+                                        className="genre-chip" />
                         })}
+                        {movie.genre_ids?.length > 3 && (
+                            <Chip 
+                                label="..."
+                                sx={{color:"#fff"}}
+                                size="small"
+                                variant="outlined" />
+                        )}
                     </Stack>
                 </div>
                 <div className="movie-rate-infos">
@@ -81,7 +91,10 @@ const MovieCard = ({ movie }) => {
                         <StarIcon color="warning" fontSize="small" />
                         {movie.vote_average.toFixed(2)}
                     </Box>
-                    <div>{Math.floor(movie.popularity)}</div>
+                    <Box sx={{display:"flex", alignItems:"center"}}>
+                        <WhatshotIcon color="error" fontSize="small" />
+                        {Math.floor(movie.popularity)}
+                    </Box>
                     <div>{movie.adult ? <OverAge /> : <UnderAge /> }</div>
                 </div>
             </div>

@@ -5,6 +5,7 @@
     background-position: 50%;
     cursor: pointer;
     transition: 0.5s;
+    overflow: hidden;
 }
 .movie-card:hover {
     transform: scale(1.2) translateZ(20px);
@@ -48,5 +49,9 @@
     }
     .overlay {
         height: 250px;
+    }
+    .movie-title {
+        font-size: 1rem;
+        margin-bottom: 8px;
     }
 }
