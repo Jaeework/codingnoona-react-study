@@ -19,19 +19,37 @@ import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
+  const [sortOption, setSortOption] = useState("popularity");
+  const [selectedGenreList, setSelectedGenreList] = useState([]);
+  
   const keyword = query.get("q");
+  const sortOptionList = [{id:"popularity", label:"인기 많은 순"}, {id:"primary_release_date", label:"최신 개봉일 순"}, {id:"vote_average", label:"별점 높은 순"}];
+
+  const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page, sortOption, selectedGenreList });
+  const {data:genreData} = useMovieGenreQuery();
 
   useEffect(() => {
     setPage(1);
+    setSortOption("popularity");
+    setSelectedGenreList([]);
   },[keyword]);
 
-  const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page });
-  const {data:genreData} = useMovieGenreQuery();
+  useEffect(() => {
+    if(data?.total_pages < page) {
+      setPage(data.total_pages === (page - 1) ? (page-1) : data.total_pages)
+    }
+  }, [data?.total_pages])
 
   const handlePageChange = (event, value) => {
     setPage(value);
   }
+  const handleGenreList = (genreId) => {
+    return selectedGenreList.includes(genreId) 
+      ? setSelectedGenreList(selectedGenreList.filter((id) => id !== genreId))
+      : setSelectedGenreList([...selectedGenreList, genreId]);
+  }
   console.log('ddd', data);
+  
   if (isLoading) return <LoadingSpinner />
   if (isError) return <AlertMessage type="error" message={error.message} />
   return (
@@ -51,9 +69,21 @@ const MoviePage = () => {
             </AccordionSummary>
             <AccordionDetails>
               <MenuList>
-                <MenuItem >인기 많은 순</MenuItem>
-                <MenuItem >최신 발매 순</MenuItem>
-                <MenuItem >별점 높은 순</MenuItem>
+                {sortOptionList.map((option) => (
+                  <MenuItem
+                    key={option.id}
+                    selected={option.id===sortOption}
+                    onClick={()=>setSortOption(option.id)}
+                    sx={{
+                      "&:hover" : {
+                        backgroundColor: "gray"
+                      },
+                      "&.Mui-selected" : {
+                        backgroundColor: "error.dark"
+                      }
+                    }}
+                    >{option.label}</MenuItem>
+                ))}
               </MenuList>
             </AccordionDetails>
           </Accordion>
@@ -76,18 +106,37 @@ const MoviePage = () => {
                 sx={{flexWrap: "wrap"}}
                 spacing={1}>
                   {genreData?.map((genre) => {
+                    const isSelected = selectedGenreList.includes(genre.id);
                     return (
                       <Chip
                         key={genre.id}
                         label={genre.name}
-                        sx={{color: "#fff"}}
-                        variant="outlined" />
+                        sx={{
+                          color: "#fff",
+                          backgroundColor: isSelected? "#c62828" : 'transparent',
+                          "&:hover" : {
+                            backgroundColor: isSelected ? "#d32f2f !important" : "rgba(128, 128, 128, 0.3) !important"
+                          },
+                        }}
+                        variant="outlined"
+                        onClick={()=>handleGenreList(genre.id)}
+                        />
                     )
                   })}
               </Stack>
             </AccordionDetails>
             <AccordionActions>
-              <Button variant="contained" color='#fff'>APPLY</Button>
+              <Button 
+                variant="contained"
+                sx={{ 
+                  backgroundColor: "transparent",
+                  color: "#fff",
+                  "&:hover" : {
+                    backgroundColor: "rgba(128, 128, 128, 0.3)"
+                  }
+                }}
+                onClick={()=>setSelectedGenreList([])}
+              >초기화</Button>
             </AccordionActions>
           </Accordion>
       
@@ -106,35 +155,36 @@ const MoviePage = () => {
             </Grid>)
           }) : <AlertMessage type="warning" message={"표시할 결과가 없습니다."} /> }
         </Grid>
-        <Pagination 
-          boundaryCount={0}
-          siblingCount={2}
-          showFirstButton="true"
-          showLastButton="true"
-          count={data?.total_pages > 500 ? 500 : data?.total_pages} 
-          page={page}
-          onChange={handlePageChange}
-          variant="outlined"
-          color="error"
-          sx={{
-            '& .MuiPaginationItem-root': {
-              color: '#fff',
-            },
-            '& .MuiSvgIcon-root': {
-              color: '#fff'
-            },
-            '& .Mui-selected': {
-              color: "error.dark",
-            },
-            '& .MuiPaginationItem-outlined:hover' : {
-              color: 'error.main',
-              backgroundColor: "rgba(211, 47, 47, 0.12)",
-            },
-            my : "20px",
-          }}
-          />
+        <Grid container sx={{justifyContent:"center"}}>
+          <Pagination 
+            boundaryCount={0}
+            siblingCount={2}
+            showFirstButton="true"
+            showLastButton="true"
+            count={data?.total_pages > 500 ? 500 : data?.total_pages} 
+            page={page}
+            onChange={handlePageChange}
+            variant="outlined"
+            color="error"
+            sx={{
+              '& .MuiPaginationItem-root': {
+                color: '#fff',
+              },
+              '& .MuiSvgIcon-root': {
+                color: '#fff'
+              },
+              '& .Mui-selected': {
+                color: "error.dark",
+              },
+              '& .MuiPaginationItem-outlined:hover' : {
+                color: 'error.main',
+                backgroundColor: "rgba(211, 47, 47, 0.12)",
+              },
+              my : "20px",
+            }}
+            />
+        </Grid>
       </Grid>
-
     </Grid>
   )
 }
