@@ -9,9 +9,6 @@ const Banner = () => {
 
     const { data, isLoading, isError, error } =usePopularMoviesQuery();
 
-    if(isLoading) {
-        return <LoadingSpinner />
-    }
     if(isError) {
         return <AlertMessage type="error" message={error.message} />
     }

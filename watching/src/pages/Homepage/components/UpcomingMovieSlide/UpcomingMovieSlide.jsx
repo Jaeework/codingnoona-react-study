@@ -9,9 +9,6 @@ import { useUpcomingMoviesQuery } from '../../../../hooks/useUpcomigMovies';
 const UpcomingMovieSlide = () => {
     const {data, isLoading, isError, error} = useUpcomingMoviesQuery();
     
-    if(isLoading) {
-        return <LoadingSpinner />
-    }
     if(isError) {
         return <AlertMessage type="error" message={error.message} />
     }

@@ -9,9 +9,6 @@ import { useTopRatedMoviesQuery } from '../../../../hooks/useTopRatedMovie';
 const TopRatedMovieSlide = () => {
     const {data, isLoading, isError, error} = useTopRatedMoviesQuery();
     
-    if(isLoading) {
-        return <LoadingSpinner />
-    }
     if(isError) {
         return <AlertMessage type="error" message={error.message} />
     }
