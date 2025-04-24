@@ -38,7 +38,7 @@ const MoviePage = () => {
     if(data && data.total_pages && data.total_pages < page) {
       setPage(data.total_pages === (page - 1) ? (page-1) : data.total_pages)
     }
-  }, [data?.total_pages])
+  }, [data?.total_pages, page])
 
   const handlePageChange = (event, value) => {
     setPage(value);
