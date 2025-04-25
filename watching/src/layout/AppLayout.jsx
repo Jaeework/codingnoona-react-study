@@ -207,9 +207,8 @@ const AppLayout = () => {
         >
           <UpIcon />
         </Fab>
+        <Outlet />
       </ThemeProvider>
-      <Outlet />
-      
     </div>
 
   );

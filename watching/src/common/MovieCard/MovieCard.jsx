@@ -5,6 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import NoImage from '../../assets/no_image.png';
 import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
+import { useNavigate } from 'react-router-dom';
 
 
 const UnderAge = () => (
@@ -40,6 +41,12 @@ const OverAge = () => (
 
 const MovieCard = ({ movie }) => {
     const {data:genreData} = useMovieGenreQuery();
+    const navigate = useNavigate();
+
+    const handleMovieCardClick = (movieId) => {
+        navigate(`/movies/${movieId}`);
+    }
+
     const showGenre = (genreIdList) => {
         if(!genreData) return [];
         const genreNameList = genreIdList.map((id) => {
@@ -58,6 +65,7 @@ const MovieCard = ({ movie }) => {
 
     return (
         <div
+            onClick={() => handleMovieCardClick(movie.id)}
             style={{ 
                 backgroundImage: "url(" + `${imgUrl}` + ")" }}
             className="movie-card">

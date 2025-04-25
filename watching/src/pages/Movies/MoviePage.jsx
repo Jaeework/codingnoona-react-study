@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useSearchMovieQuery } from '../../hooks/useSearchMovie'
 import LoadingSpinner from '../../common/components/LoadingSpinner';
 import AlertMessage from '../../common/components/AlertMessage';
-import MovieCard from '../../common/MovieCard/MovieCard'
 import { useSearchParams } from 'react-router-dom';
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button, Chip, Grid, MenuItem, MenuList, Pagination, Stack, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
+import MovieCardList from '../../common/MovieCardList/MovieCardList';
 
 // 경로 2가지
 // nav바에서 클릭해서 온 경우 => popular Movie 보여주기
@@ -48,7 +48,6 @@ const MoviePage = () => {
       ? setSelectedGenreList(selectedGenreList.filter((id) => id !== genreId))
       : setSelectedGenreList([...selectedGenreList, genreId]);
   }
-  console.log('ddd', data);
   
   if (isLoading) return <LoadingSpinner />
   if (isError) return <AlertMessage type="error" message={error.message} />
@@ -128,8 +127,8 @@ const MoviePage = () => {
             <AccordionActions>
               <Button 
                 variant="contained"
+                color="inherit"
                 sx={{ 
-                  backgroundColor: "transparent",
                   color: "#fff",
                   "&:hover" : {
                     backgroundColor: "rgba(128, 128, 128, 0.3)"
@@ -142,48 +141,7 @@ const MoviePage = () => {
       
       </Grid>
       <Grid size={{ md: 8, xs: 12 }}>
-        <Grid container spacing={2}>
-          {data?.results.length > 0 ? data?.results.map((movie, index) => {
-            return (
-            <Grid 
-              sx={{display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center"}} 
-              key={index} 
-              size={{ lg:3 ,md: 4, xs: 6 }}>
-              <MovieCard movie={movie} />
-            </Grid>)
-          }) : <AlertMessage type="warning" message={"표시할 결과가 없습니다."} /> }
-        </Grid>
-        <Grid container sx={{justifyContent:"center"}}>
-          <Pagination 
-            boundaryCount={0}
-            siblingCount={2}
-            showFirstButton="true"
-            showLastButton="true"
-            count={data?.total_pages > 500 ? 500 : data?.total_pages} 
-            page={page}
-            onChange={handlePageChange}
-            variant="outlined"
-            color="error"
-            sx={{
-              '& .MuiPaginationItem-root': {
-                color: '#fff',
-              },
-              '& .MuiSvgIcon-root': {
-                color: '#fff'
-              },
-              '& .Mui-selected': {
-                color: "error.dark",
-              },
-              '& .MuiPaginationItem-outlined:hover' : {
-                color: 'error.main',
-                backgroundColor: "rgba(211, 47, 47, 0.12)",
-              },
-              my : "20px",
-            }}
-            />
-        </Grid>
+        <MovieCardList data={data} page={page} handlePageChange={handlePageChange} />
       </Grid>
     </Grid>
   )
