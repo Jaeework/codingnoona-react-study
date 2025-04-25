@@ -34,28 +34,38 @@ const ReviewList = ({ id }) => {
       {reviewData?.results?.length === 0 ? <AlertMessage type="warning" message="아직 등록된 리뷰가 없습니다." /> 
       : <List sx={{width:"100%", bgcolor: "background.paper"}}>
         {reviewData?.results?.map((review) => (
-          <>
-          <ListItem>
-              <Box sx={{p:"10px"}}>
-                <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="subtitle1" sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>{review.author}</Typography>
-                  <Typography variant="subtitle2" sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-                    <StarIcon color="warning" />
-                    {review?.author_details?.rating}/10
+          <React.Fragment key={review.id}>
+            <ListItem>
+                <Box sx={{p:"10px", width:"100%"}}>
+                  <Stack direction="row" justifyContent="space-between">
+                    <Typography variant="subtitle1" sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>{review.author}</Typography>
+                    <Typography variant="subtitle2" sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                      <StarIcon color="warning" />
+                      {review?.author_details?.rating}/10
+                    </Typography>
+                  </Stack>
+                  <Typography component="div" variant="body2" sx={{ color: 'text.secondary' }}>
+                    {expandedReviewIds?.includes(review.id) || review.content <= 200 
+                    ? review.content 
+                    : `${review.content.slice(0, 200)}...`}
+                    {
+                      review?.content.length > 200 ?
+                      <div
+                        style={{
+                          display:"flex",
+                          justifyContent:"end"
+                        }}
+                      >
+                        <Button color="warning" onClick={()=>toggleReview(review.id)}>
+                          {expandedReviewIds.includes(review.id) ? "Show less" : "Show more"}
+                        </Button>
+                      </div> : ""
+                    }
                   </Typography>
-                </Stack>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {expandedReviewIds?.includes(review.id) 
-                  ? review.content 
-                  : `${review.content.slice(0, 200)}...`}
-                  <Button color="warning" onClick={()=>toggleReview(review.id)}>
-                    {expandedReviewIds.includes(review.id) ? "Show less" : "Show more"}
-                  </Button>
-                </Typography>
-              </Box>
-          </ListItem>
-          <Divider />
-          </>
+                </Box>
+            </ListItem>
+            <Divider />
+          </React.Fragment>
         ))}
         <Grid container sx={{justifyContent:"center"}}>
           <Pagination 

@@ -1,14 +1,24 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import './MovieSlider.style.css';
 import MovieCard from '../MovieCard/MovieCard'
 
 const MovieSlider = ({ title, movies, responsive }) => {
     return (
         <Box container sx={{ my: "20px"}}>
-            <h3 className="slider-title">{title}</h3>
+            <Typography 
+                variant="h5" 
+                className="slider-title"
+                sx={{
+                    fontFamily: "Arial, Helvetica, sans-serif",
+                    fontSize: "1.5rem",
+                    marginLeft: "20px",
+                    marginBottom: "20px",
+                    color: "#fff",
+                }}
+                >{title}</Typography>
             <Carousel
                 infinite={true}
                 centerMode={true}

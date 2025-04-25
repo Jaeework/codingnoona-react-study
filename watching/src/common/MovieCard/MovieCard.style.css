@@ -6,6 +6,7 @@
     cursor: pointer;
     transition: 0.5s;
     overflow: hidden;
+    border-radius: 15px;
 }
 .movie-card:hover {
     transform: scale(1.2) translateZ(20px);
